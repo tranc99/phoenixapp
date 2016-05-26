@@ -19,8 +19,8 @@ defmodule HelloPhoenix.Router do
     get "/", PageController, :index
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
-    resources "/users", UserController
-    resources "/posts", PostController, only: [:index, :show]
+    resources "/reviews", ReviewController
+    resources "/users", UserController 
     resources "/comments", CommentController, except: [:delete]
   end
 
@@ -28,4 +28,10 @@ defmodule HelloPhoenix.Router do
   # scope "/api", HelloPhoenix do
   #   pipe_through :api
   # end
+
+  scope "/admin", as: :admin do
+    pipe_through :browser
+
+    resources "/reviews", HelloPhoenix.Admin.ReviewController
+  end
 end
